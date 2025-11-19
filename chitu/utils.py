@@ -1352,3 +1352,15 @@ def hf_multimodal_encode(messages, processor):
         ),
     )
 
+def is_blackhole():
+    if not has_ttnn:
+        raise ImportError("ttnn is required for is_blackhole")
+    ARCH_NAME = ttnn.get_arch_name()
+    return "blackhole" in ARCH_NAME
+
+
+def is_wormhole_b0():
+    if not has_ttnn:
+        raise ImportError("ttnn is required for is_wormhole_b0")
+    ARCH_NAME = ttnn.get_arch_name()
+    return "wormhole_b0" in ARCH_NAME
