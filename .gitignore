@@ -7,7 +7,7 @@ __pycache__/
 *.so
 csrc/
 third_party/
-
+.specstory/
 # Distribution / packaging
 .Python
 build/
