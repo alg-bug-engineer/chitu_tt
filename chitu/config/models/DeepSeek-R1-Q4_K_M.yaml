@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2025 Qingcheng.AI
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# DeepSeek-R1-Q4_K_M is a data-type variant of DeepSeek-R1
+defaults:
+  - DeepSeek-R1
+  - backend_config: cpu-mlp
+  - override quant_config: blockfp8_attn_Q4KM_ffn
+  - _self_ # Config in this file overrides configs in defaults
+
+# Access info
+name: DeepSeek-R1-Q4_K_M
+
+ckpt_dir: null # Please override this in commond line with `models.ckpt_dir=<path>`.
+tokenizer_path: null # By default the same as ckpt_dir, or you can override it with `models.tokenizer_path=<path>`.

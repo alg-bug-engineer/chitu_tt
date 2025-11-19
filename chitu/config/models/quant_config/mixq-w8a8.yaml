@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2025 Qingcheng.AI
+#
+# SPDX-License-Identifier: Apache-2.0
+
+quant: 
+- model: '.'
+  rules:
+    - regex : 'layers\.'
+      type : mixq
+      kwargs:
+        fp_features_num: 128
+        w_bits: 8
+        a_bits: 8
