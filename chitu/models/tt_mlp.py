@@ -6,10 +6,9 @@
 
 import torch
 
-from chitu.utils import try_import_platform_dep
-from chitu.models.lightweightmodule import LightweightModule
+from chitu.utils import try_import_platform_dep, LightweightModule
 from chitu.distributed.tt_ccl import tt_all_reduce
-from chitu.models.tt_common import pad_to_size
+from chitu.utils import pad_to_size
 
 ttnn, has_ttnn = try_import_platform_dep("ttnn")
 

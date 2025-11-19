@@ -7,17 +7,10 @@
 from dataclasses import dataclass
 
 import torch
-from llama_models.llama3.api.datatypes import InterleavedTextMedia, StopReason
-from llama_models.llama3.reference_impl.generation import (
-    ChatPrediction,
-    CompletionPrediction,
-    TokenResult,
-    sample_top_p,
-)
 from loguru import logger
 
 from chitu.utils import try_import_platform_dep
-from chitu.models.tt_common import (
+from chitu.utils import (
     copy_host_to_device,
     get_block_size,
     get_max_prefill_chunk_size,
@@ -28,9 +21,6 @@ from chitu.models.tt_common import (
 ttnn, has_ttnn = try_import_platform_dep("ttnn")
 
 if has_ttnn:
-    from chitu.models.tt_model_config import CheckpointType
-
-
     @dataclass(frozen=True)
     class SamplingParams:
         """

@@ -4,8 +4,7 @@
 #
 # Integrated from tt_qwen/models/decoder.py
 
-from chitu.utils import try_import_platform_dep
-from chitu.models.lightweightmodule import LightweightModule
+from chitu.utils import try_import_platform_dep, LightweightModule
 from chitu.ops.norm import TTRMSNorm as RMSNorm
 from chitu.models.tt_attention import Attention as DefaultAttention
 from chitu.distributed.tt_ccl import tt_all_reduce

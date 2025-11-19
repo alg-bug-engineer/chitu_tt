@@ -9,16 +9,15 @@ from tqdm import tqdm
 import sys
 import os
 
-from chitu.utils import try_import_platform_dep
-from chitu.models.lightweightmodule import LightweightModule
+from chitu.utils import try_import_platform_dep, LightweightModule
 from chitu.ops.norm import TTRMSNorm as RMSNorm
 from chitu.distributed.tt_ccl import TT_CCL
-from chitu.models.tt_common import copy_host_to_device
+from chitu.utils import copy_host_to_device
 from chitu.models.tt_decoder import TransformerBlock
 from chitu.ops.norm import DistributedNorm
 from chitu.models.tt_embedding import Embedding, ScaledEmbedding
 from chitu.models.tt_lm_head import LMHead
-from chitu.ops.tt_rotary import RotarySetup
+from chitu.ops.rotary import TTRotarySetup
 
 ttnn, has_ttnn = try_import_platform_dep("ttnn")
 
@@ -66,7 +65,7 @@ if has_ttnn:
                 embd_cls = Embedding
             self.embd = embd_cls(**embd_kwargs)
 
-            ActualRopeSetupClass = rope_setup_class if rope_setup_class is not None else RotarySetup
+            ActualRopeSetupClass = rope_setup_class if rope_setup_class is not None else TTRotarySetup
             self.rope_setup = ActualRopeSetupClass(
                 device=mesh_device,
                 batch_size=args.max_batch_size,
@@ -77,7 +76,7 @@ if has_ttnn:
             )
 
             if args.rope_theta_local:
-                self.rope_local_setup = RotarySetup(
+                self.rope_local_setup = TTRotarySetup(
                     mesh_device,
                     args.max_batch_size,
                     args.head_dim,
@@ -427,7 +426,7 @@ if has_ttnn:
 
         def forward(
             self,
-            x: ttnn.Tensor,
+            x,
             current_pos,
             rot_mats_global=None,
             rot_mats_local=None,

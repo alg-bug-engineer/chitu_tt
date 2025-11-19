@@ -11,6 +11,7 @@ from chitu.utils import (
     try_import_platform_dep,
     try_import_opt_dep,
     try_import_and_setup_torch_npu,
+    LightweightModule
 )
 from chitu.global_vars import get_global_args
 from chitu.cpuinfer_singleton import get_cpu_infer
@@ -183,20 +184,6 @@ def rms_norm(
 # Tenstorrent (ttnn) specific RMSNorm class
 # This is integrated from tt_qwen/models/rmsnorm.py
 if has_ttnn:
-    # Lazy import to avoid circular import issues
-    # Use importlib to directly load the module file, bypassing __init__.py
-    import importlib.util
-    import os
-    _lightweightmodule_path = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), 
-        'models', 
-        'lightweightmodule.py'
-    )
-    _spec = importlib.util.spec_from_file_location("chitu.models.lightweightmodule", _lightweightmodule_path)
-    _lightweightmodule = importlib.util.module_from_spec(_spec)
-    _spec.loader.exec_module(_lightweightmodule)
-    LightweightModule = _lightweightmodule.LightweightModule
-    
     TILE = 32
     SHARD_HEIGHT = TILE  # Current ttnn.rms_norm implementation requires shard height to be a single tile
 

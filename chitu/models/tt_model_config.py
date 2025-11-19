@@ -30,7 +30,7 @@ if has_ttnn:
     except ImportError:
         Transformer = None  # Optional reference implementation
 
-    from chitu.models.tt_common import (
+    from chitu.utils import (
     calculate_hidden_dim,
     encode_prompt_hf,
     encode_prompt_instruct,
@@ -2443,7 +2443,7 @@ class ModelArgs:
 
     def reference_embedding(self, reference_model=None):
         if self.checkpoint_type == CheckpointType.Meta:
-            from chitu.models.tt_common import HostEmbedding, HostScaledEmbedding
+            from chitu.utils import HostEmbedding, HostScaledEmbedding
 
             return HostEmbedding(self) if self.embed_scale is None else HostScaledEmbedding(self)
         else:

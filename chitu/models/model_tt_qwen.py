@@ -97,12 +97,11 @@ class TTQwenModel:
         **extra_kwargs,
     ):
         # Lazy import
-        from chitu.utils import try_import_platform_dep
+        from chitu.utils import try_import_platform_dep, create_tt_model
         ttnn, has_ttnn = try_import_platform_dep("ttnn")
         if not has_ttnn:
             raise ImportError("ttnn is required for TT_QWEN model")
         
-        from chitu.models.tt_common import create_tt_model
         from chitu.models.tt_generator import Generator
         from chitu.models.tt_model_config import DecodersPrecision
 

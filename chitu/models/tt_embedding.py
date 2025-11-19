@@ -4,8 +4,7 @@
 #
 # Integrated from tt_qwen/models/embedding.py
 
-from chitu.utils import try_import_platform_dep
-from chitu.models.lightweightmodule import LightweightModule
+from chitu.utils import try_import_platform_dep, LightweightModule
 
 ttnn, has_ttnn = try_import_platform_dep("ttnn")
 
