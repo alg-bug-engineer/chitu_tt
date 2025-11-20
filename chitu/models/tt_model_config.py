@@ -51,7 +51,7 @@ if has_ttnn:
     standardize_hf_keys,
     standardize_hf_keys_multimodal,
 )
-    from chitu.models.tt_utility_functions import is_blackhole, is_wormhole_b0, nearest_32
+    from chitu.utils import is_blackhole, is_wormhole_b0, nearest_32
 
 # file names for performance and accuracy mode override files
 PERFORMANCE_DECODER_CONFIG_FILENAME = "performance_decoder_config.json"

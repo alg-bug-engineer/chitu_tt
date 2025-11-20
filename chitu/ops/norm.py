@@ -363,7 +363,7 @@ if has_ttnn:
     RMSNorm = TTRMSNorm
 
     # DistributedNorm class integrated from tt_qwen/models/distributed_norm.py
-    from chitu.distributed.tt_ccl import tt_distributed_rmsnorm, tt_sharded_distributed_rmsnorm
+    from chitu.utils import tt_distributed_rmsnorm, tt_sharded_distributed_rmsnorm
 
     class DistributedNorm(LightweightModule):
         def __init__(self, norm, args, tt_ccl, TG=False):
