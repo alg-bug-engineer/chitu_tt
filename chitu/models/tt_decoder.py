@@ -387,12 +387,12 @@ class Attention(LightweightModule):
 
     def forward_decode(
         self,
-        x: ttnn.Tensor,
+        x,
         current_pos,
         rot_mats=None,
         page_table=None,
         kv_cache=None,
-    ) -> ttnn.Tensor:
+    ):
         """
         x: (seq_len, 1, batch, dim)
         current_pos: (batch_size), current token position in the sequence for each user
@@ -1021,7 +1021,7 @@ class MLP(LightweightModule):
             args.mlp_activation_type if hasattr(args, "mlp_activation_type") else ttnn.UnaryOpType.SILU
         )
 
-    def forward(self, x: ttnn.Tensor, mode) -> ttnn.Tensor:
+    def forward(self, x, mode):
         """
         w1 -> gate_proj
         w2 -> down_proj
@@ -1378,7 +1378,7 @@ class TransformerBlock(LightweightModule):
 
     def forward(
         self,
-        x: ttnn.Tensor,
+        x,
         current_pos,
         rot_mats_global=None,
         rot_mats_local=None,
@@ -1388,7 +1388,7 @@ class TransformerBlock(LightweightModule):
         chunk_page_table=None,
         chunk_start_idx=None,
         kv_cache=None,
-    ) -> ttnn.Tensor:
+    ):
         TG = self.args.is_galaxy
         residual = x
         # x is fractured across devices and interleaved in DRAM (for prefill) and sharded in L1 (for decode)
